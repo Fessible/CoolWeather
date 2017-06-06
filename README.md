@@ -1,0 +1,2 @@
+# CoolWeather
+a weather app
