@@ -46,7 +46,7 @@ import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
     @BindView(R.id.btn_nav)
-    Button btn_nav;
+    public Button btn_nav;
 
     @BindView(R.id.weather_info)
     ScrollView weatherLayout;
@@ -133,6 +133,7 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 requestWeather(weatherId);
+                loadPic();
             }
         });
 

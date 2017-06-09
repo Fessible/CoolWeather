@@ -1,5 +1,6 @@
 package example.com.coolweather.util;
 
+import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ public class Utility {
                     province.setProvinceCode(object.getInt("id"));
                     province.setProvinceName(object.getString("name"));
                     province.save();//存储到数据库
+
                 }
                 return true;
             } catch (JSONException e) {
