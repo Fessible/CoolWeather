@@ -189,7 +189,6 @@ public class WeatherActivity extends AppCompatActivity {
     public void requestWeather(final String weatherId) {
         String weatherUrl = "https://api.heweather.com/x3/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
 
-//        String weatherUrl = "https://api.heweather.com/x3/weather?cityid=" + weatherId + "&key=25b66c67c448456b88bd0f006f9adad9";
 
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
@@ -232,8 +231,8 @@ public class WeatherActivity extends AppCompatActivity {
 
     //显示天气数据
     private void showWeatherInfo(Weather weather) {
-        /*Intent intent = new Intent(this, AutoUpdateService.class);
-        startService(intent);*/
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
         titleCity.setText(weather.basic.cityName);
         titleTime.setText(weather.basic.update.updateTime.split(" ")[1]);//返回的时间：2017-06-06 21:28，为了只显示时间，通过split分割，取后面的时间信息
         degreeText.setText(weather.now.tmp+"℃");

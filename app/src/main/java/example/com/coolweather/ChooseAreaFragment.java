@@ -105,7 +105,7 @@ public class ChooseAreaFragment extends Fragment {
                         startActivity(intent);
                         getActivity().finish();
                     } else if (getActivity() instanceof WeatherActivity) {
-                        WeatherActivity activity =(WeatherActivity) getActivity();
+                        WeatherActivity activity = (WeatherActivity) getActivity();
                         activity.drawerLayout.closeDrawers();
                         activity.refrshLayout.setRefreshing(true);
                         activity.requestWeather(weatherId);
@@ -197,61 +197,6 @@ public class ChooseAreaFragment extends Fragment {
             String address = ADDRESS + "/" + provinceCode + "/" + cityCode;
             queryFromServer(address, "county");
         }
-
-
-    }
-
-
-    //从服务器中寻找数据
-    private void queryFromService(String address, final String type) {
-        //显示ProgressDialog
-        showProgressDialog();
-        HttpUtil.sendOkHttpRequest(address, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //通过runOnUiThread对UI操作
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        closeProgressDialog();
-                        makeText(getContext(), "加载失败", LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //获得结果
-                String responseText = response.body().string();
-                boolean result = false;
-                if ("province".equals(type)) {
-                    result = Utility.handleProvinceResponse(responseText);//解析服务器内容
-                } else if ("city".equals(type)) {
-                    result = Utility.handleCityResponse(responseText, selectedProvince.getId());
-                } else if ("county".equals(type)) {
-                    result = Utility.handleCountyResponse(responseText, selectedCity.getId());
-                }
-                //解析成功
-                if (result) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            closeProgressDialog();//关闭ProgressDialog
-
-                            if ("province".equals(type)) {
-                                queryProvinces();//返回去，显示数据到ListView
-                            } else if ("city".equals(type)) {
-                                queryCities();
-                            } else if ("county".equals(type)) {
-                                queryCounties();
-                            }
-                        }
-                    });
-                }
-            }
-
-
-        });
 
 
     }
